@@ -1,0 +1,75 @@
+﻿@model ML.Producto
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Productos</h2>
+<hr />
+
+@if (Model.Productos != null)
+{
+    <div class="row-cols-3">
+
+        <div class="col-md-12">
+
+            <a class="btn btn-success" href="@Url.Action("Add","Producto", new {IdProducto = 0})">Agragar nuevo producto</a>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <td>Nombre del producto</td>
+                        <td>Precio unitario</td>
+                        <td>stock</td>
+                        <td>Descripcion</td>
+                        <td>Imagen</td>
+                        <td>Editar</td>
+                        <td>Eliminar</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Producto producto in Model.Productos)
+                    {
+                        <tr>
+                            <td>@producto.Nombre</td>
+                            <td>@producto.PrecioUnitario</td>
+                            <td>@producto.stock</td>
+                            <td>@producto.Descripcion</td>
+
+                            <td>
+                                @if (producto.Imagen == "" || producto.Imagen == null)
+                                {
+
+                                    <img src="https://png.pngtree.com/png-vector/20190809/ourlarge/pngtree-packaging-branding-marketing-product-bottle-flat-color-icon-png-image_1652448.jpg" width="50" height="50" />
+                                }
+                                else
+                                {
+                                    <img src="data:image/*;base64,@producto.Imagen" width="50" height="50" />
+                                }
+                            </td>
+
+                            <td>
+                                <a class="btn btn-warning"
+                                   href="@Url.Action("Add","Producto", new {IdProducto = producto.IdProducto})">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            </td>
+
+                            <td>
+                                <a class="btn btn-secondary"
+                                   href="@Url.Action("Delete","Producto", new {IdProducto = producto.IdProducto})" ,
+                                   onclick="return confirm('Estas seguro en eliminarlo');">
+                                    <i class="fa-solid fa-ban"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+}

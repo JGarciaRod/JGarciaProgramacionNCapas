@@ -1,0 +1,38 @@
+﻿@model ML.Area
+@{
+    ViewBag.Title = "Catalogo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Catalogo</h2>
+<link href="~/Content/Styles/Catalogo.css" rel="stylesheet" />
+
+<a class="btn btn-success" href="@Url.Action("GetProductos","Catalogo", new {IdArea = 0})">Todos los productos</a>
+
+<div class="row">
+
+    @foreach (ML.Area area in Model.Areas)
+    {
+        <div class="col-md-3 col-sm-6">
+            <div class="product-grid">
+                <div class="product-image">
+                    <a class="image"  href="@Url.Action("GetProductos","Catalogo", new { IdArea = area.IdArea })" >
+                        <img class="pic-1" 
+                             src="https://previews.123rf.com/images/jemastock/jemastock1912/jemastock191250533/136428627-mujer-y-hombre-con-camiones-de-supermercado-en-el-pasillo-del-supermercado-dise%C3%B1o-colorido.jpg ">
+                    </a>
+                    <ul class="product-links">
+                        <li><a href="#" data-tip="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
+                        <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-bag"></i></a></li>
+                    </ul>
+                </div>
+                <div class="product-content">
+
+                    <h3 class="title"><a href="#"> @area.IdArea </a></h3>
+                    <h3 class="title"><a href="#"> @area.Nombre </a></h3>
+                    
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

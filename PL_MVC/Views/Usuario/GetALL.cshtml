@@ -1,0 +1,183 @@
+﻿@model ML.Usuario
+
+@{
+    ViewBag.Title = "GetALL";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+@Scripts.Render("~/bundles/jquery")
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+<h2 class="text-center">Bienvenodo A Usuarios</h2>
+<hr />
+@if (Model.Usuarios != null)
+{
+    <div class="row">
+
+        @using (Html.BeginForm("GetALL", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre" })
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @placeholder = "Apellido" })
+            </div>
+            <button class="btn btn-dark" type="submit">Buscar</button>
+        }
+
+        <div class="col-md-12">
+
+            <a class="btn btn-success" href=@Url.Action("Add","Usuario" , new {IdUsuario = 0})>Agregar nuevo usuario</a>
+
+            <table class="table table-dark table-hover" id="myTable">
+                <thead>
+                    <tr>
+                        <th>Actializar</th>
+
+                        <th>Id Usuario</th>
+                        <th>User Name</th>
+                        <th>Nombre</th>
+                        <th>Apellido Paterno</th>
+
+
+
+                        <th>Imagen</th>
+
+                        <th>Calle</th>
+                        <th>Colonia</th>
+                        <th>Status</th>
+
+                        <th>Nombre Rol</th>
+
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody class="table-light">
+
+                    @foreach (ML.Usuario usuario in Model.Usuarios)
+                    {
+                        <tr>
+
+                            <td>
+                                <a class="btn btn-primary" href="@Url.Action("Add","Usuario", new {IdUsuario = usuario.IdUsuario})">
+                                    <i class="fa-solid fa-user-pen fa-fade" style="color: #ff0000;"></i>
+                                </a>
+                            </td>
+
+
+                            <td> @usuario.IdUsuario </td>
+                            <td> @usuario.UserName </td>
+                            <td> @usuario.Nombre </td>
+                            <td> @usuario.ApellidoPaterno </td>
+
+
+
+                            <td>
+                                @if (usuario.Imagen == "" || usuario.Imagen == null)
+                                {
+
+                                    <img src="https://www.computerhope.com/jargon/g/guest-user.png" width="50" height="50" />
+                                }
+                                else
+                                {
+                                    <img src="data:image/*;base64,@usuario.Imagen" width="50" height="50" />
+                                }
+                            </td>
+
+
+                            <td> @usuario.Direccion.Calle</td>
+                            <td> @usuario.Direccion.Colonia.Nombre</td>
+
+                            @if (usuario.Status)
+                            {
+                                <td style="text-align: center; vertical-align: middle;">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked onchange="ChangeStatus(@usuario.IdUsuario, this)" />
+                                    </div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="text-align: center; vertical-align: middle;">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="ChangeStatus(@usuario.IdUsuario, this)">
+                                    </div>
+                                </td>
+                            }
+
+
+                            @if (usuario.Rol.Nombre == "ADMIN")
+                            {
+                                <td style="color: gold"> @usuario.Rol.Nombre</td>
+                            }
+                            else if (usuario.Rol.Nombre == "USER")
+                            {
+                                <td style="color: coral"> @usuario.Rol.Nombre</td>
+                            }
+                            else if (usuario.Rol.Nombre == "CONTADOR")
+                            {
+                                <td style="color: brown"> @usuario.Rol.Nombre</td>
+                            }
+                            else if (usuario.Rol.Nombre == "ALMACENISTA")
+                            {
+                                <td style="color: blueviolet"> @usuario.Rol.Nombre</td>
+                            }
+                            else if (usuario.Rol.Nombre == "JEFE")
+                            {
+                                <td style="color: goldenrod"> @usuario.Rol.Nombre</td>
+                            }
+
+                            <td>
+                                <a class="btn btn-info"
+                                   href="@Url.Action("Delete","Usuario", new { IdUsuario = usuario.IdUsuario})" onclick="return confirm('Estas seguro que deseas eliminar el Usuario?');">
+                                    <i class="fa-solid fa-trash-can-arrow-up fa-shake" style="color: #4a2444;"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        No existen elementos en la tabla
+    </div>
+}
+
+<script type="text/javascript">
+
+    let table = new DataTable('#myTable', {
+        reponsive: true,
+        "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "Todos"]],
+        searching: false,
+        language: {
+            url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+        },
+    });
+
+    function ChangeStatus(idUsuario, e){
+        var status = e.checked
+
+        $.ajax({
+            url: '@Url.Action("ChangeStatus")',
+            data: { IdUsuario: idUsuario, Status: status },
+            type: 'POST',
+            dataType: 'json',
+            success: {},
+            error: {
+                //alert('Ha ocurrido un error')
+            }
+        })
+    }
+
+</script>

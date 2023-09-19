@@ -1,0 +1,39 @@
+﻿@model ML.Departamento
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Datos para un nuevo registro</h2>
+
+@using (Html.BeginForm("Add","Departamento", FormMethod.Post, new { enctype = "multipart/form-data" }))
+ {
+    @Html.HiddenFor(model=>model.IdDepartamento)
+
+    <div class="row">
+        <div class="col-md-3">
+            <label>Nombre de direccion</label>
+            <!--Html.LabelFor(model=>model.Nombre, new { class = " hidden " })-->
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "col-auto" })
+        </div>
+
+        <div class="col-md-3">
+            <label>Nombre de area</label>
+            <!--Html.LabelFor(model=>model.Area.Nombre, new {class="hidden"})-->
+            <!--Html.TextBoxFor(model=>model.Area.Nombre, new { class= "col-auto"})-->
+            @Html.DropDownListFor(model => model.Area.IdArea, new SelectList(Model.Area.Areas, "IdArea", "Nombre"), "Selecciona el Area", new { @class = "form-controls" })
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <input type="submit" data-toggle="modal" class="btn btn-success" value="Guardar" />
+        </div>
+
+        <div class="col-md-2">
+            <a class="btn btn-danger" href="@Url.Action("GetAll","Departamento")" >Volver</a>
+        </div>
+    </div>
+ }
+

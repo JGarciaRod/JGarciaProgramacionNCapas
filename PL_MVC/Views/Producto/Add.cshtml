@@ -1,0 +1,114 @@
+﻿@model ML.Producto
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Nuevo Producto</h2>
+
+@using (Html.BeginForm("Add", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.IdProducto)
+    @Html.HiddenFor(model => model.Imagen)
+
+    <div class="row">
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Nombre, new { @class = "hidden" })
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "coll-auto" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.PrecioUnitario, new { @class = "hidden" })
+            @Html.TextBoxFor(model => model.PrecioUnitario, new { @class = "coll-auto" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.stock, new { @class = "hidden" })
+            @Html.TextBoxFor(model => model.stock, new { @class = "coll-auto", @Type = "number" })
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.proveedor.IdProveedor, new { @class = "hidden" })
+
+            @Html.DropDownListFor(model => model.proveedor.IdProveedor, new SelectList(Model.proveedor.Proveedores, "IdProveedor", "Nombre"), "Seleccione el proveedor", new { @class = "form-controls" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.departamento.IdDepartamento, new { @class = "hidden" })
+            @Html.DropDownListFor(model => model.departamento.IdDepartamento, new SelectList(Model.departamento.Departamentos, "IdDepartamento", "Nombre"), "Seleccione el Departamento", new { @class = "form-controls" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Descripcion, new { @class = "hidden" })
+            @Html.TextAreaFor(model => model.Descripcion, new { @class = "coll-auto" })
+        </div>
+
+        <div class="col-md-3">
+            <label>Imagen</label>
+
+            @if (Model.Imagen == "" || Model.Imagen == null)
+            {
+                <img id="img" src="https://www.computerhope.com/jargon/g/guest-user.png"
+                     width="150" height="120" />
+
+
+                <input id="Imagen" name="Imagen" type="file" class="form-control" onchange="ValidarImagen(), visualizarImagen(this)" />
+            }
+            else
+            {
+                <img id="img" src="data:image/*;base64,@Model.Imagen" width="150" height="120" />
+
+                <input id="Imagen" name="Imagen" type="file" class="form-control" onchange="ValidarImagen(), visualizarImagen(this)" />
+            }
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-1">
+            <input type="submit" data-toggle="modal" class="btn btn-success btn-sm seach input-group" value="Guardar" id="Guardar" />
+        </div>
+        <div class="col-md-1">
+            <a id="back" class="btn btn-danger" href="@Url.Action("GetAll", "Producto")">Volver</a>
+        </div>
+    </div>
+
+}
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+
+    function ValidarImagen() {
+        var extencionesPermitidas = ['jpeg', 'png', 'jpg'];
+        var extencionArchivo = document.getElementById('Imagen').value.split('.').pop().toLowerCase();
+        var isValidFile = false; //saber si es valido o no
+        for (var index in extencionesPermitidas) {
+            if (extencionArchivo === extencionesPermitidas[index]) {
+                isValidFile = true;
+                break;
+            }
+        }
+        if (!isValidFile) {
+            alert('Las extenciones permitidas son: *.' + extencionesPermitidas.join(',*.'));
+            $("#Imagen").val("")
+        }
+        return isValidFile;
+    }
+
+    function visualizarImagen(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#img").attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
