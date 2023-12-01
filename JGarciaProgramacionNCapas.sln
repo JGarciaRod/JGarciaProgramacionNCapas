@@ -14,6 +14,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLEF", "DLEF\DLEF.csproj", "{10C7F28E-2694-4EFA-82B1-BDA8C635A0F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL_MVC", "PL_MVC\PL_MVC.csproj", "{9BB33FEA-55F1-46C4-82C7-BA379CABE397}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2F304F3A-9797-4733-A875-E4DCF7965EB7} = {2F304F3A-9797-4733-A875-E4DCF7965EB7}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLWCF", "SLWCF\SLWCF.csproj", "{2F304F3A-9797-4733-A875-E4DCF7965EB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLWebApi", "SLWebApi\SLWebApi.csproj", "{F49BCB5D-B0FE-495A-8C5F-26E0599F2756}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +52,14 @@ Global
 		{9BB33FEA-55F1-46C4-82C7-BA379CABE397}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BB33FEA-55F1-46C4-82C7-BA379CABE397}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BB33FEA-55F1-46C4-82C7-BA379CABE397}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F304F3A-9797-4733-A875-E4DCF7965EB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F304F3A-9797-4733-A875-E4DCF7965EB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F304F3A-9797-4733-A875-E4DCF7965EB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F304F3A-9797-4733-A875-E4DCF7965EB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F49BCB5D-B0FE-495A-8C5F-26E0599F2756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F49BCB5D-B0FE-495A-8C5F-26E0599F2756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F49BCB5D-B0FE-495A-8C5F-26E0599F2756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F49BCB5D-B0FE-495A-8C5F-26E0599F2756}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

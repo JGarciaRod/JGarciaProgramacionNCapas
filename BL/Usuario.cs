@@ -22,6 +22,7 @@ namespace BL
 {
     public class Usuario
     {
+        // sql client
         //public static ML.Result Add(ML.Usuario usuario)
         //{
         //    ML.Result result = new ML.Result();

@@ -44,7 +44,7 @@ namespace BL
             return result;
         }
 
-        public static ML.Result Update (ML.Producto producto)
+        public static ML.Result Update(ML.Producto producto)
         {
             ML.Result result = new ML.Result ();
 
@@ -87,7 +87,19 @@ namespace BL
             ML.Result result= new ML.Result ();
             try
             {
+                using (DLEF.JGarciaProgramacionNCapasEntities context =  new DLEF.JGarciaProgramacionNCapasEntities())
+                {
+                    int rowsAffected = context.ProductoDell( IdProducto );
+                    if(rowsAffected > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
 
+                }
             }
             catch(Exception ex)
             {

@@ -11,7 +11,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ML
 {
-
     public class Usuario
     {
         public int IdUsuario { get; set; }

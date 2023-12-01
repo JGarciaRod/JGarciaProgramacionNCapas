@@ -52,8 +52,7 @@ namespace BL
             try
             {
                 using(DLEF.JGarciaProgramacionNCapasEntities context = new DLEF.JGarciaProgramacionNCapasEntities())
-                {
-                    ObjectParameter filasAfectadas = new ObjectParameter("FilasAfectadas", typeof(int));
+                { 
 
                     int rowAffected = context.DepartamentoUpdate(
                         departamento.IdDepartamento,
@@ -116,9 +115,7 @@ namespace BL
             try
             {
                 using(DLEF.JGarciaProgramacionNCapasEntities context = new JGarciaProgramacionNCapasEntities())
-                {
-                    //ObjectParameter filasAfectadas = new ObjectParameter("FilasAfectadas", typeof (int));
-                    
+                {   
                     var rowAffected = context.DepartamentoGetAll(
                         departamento.Area.IdArea, 
                         departamento.Nombre
